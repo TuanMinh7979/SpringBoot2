@@ -19,7 +19,7 @@ public class AccountController {
 		//khong the ep kieu sang List
 		Iterable<Account> accounts= accountService.findAll(); 
 		map.put("accounts", accounts);
-		return "";
+		return "account/index";
 	}
 
 }

@@ -8,19 +8,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<c:if test="${errs !=null}">
-		<h5 style="color: red">${errs}</h5>
-	</c:if>
-	<br>
-	<br>
-	<c:if test="${errs == null}">
-	Thanh cong
-	<br>
-		<c:forEach items="${productbydate}" var="p">
-     ${p.name} at  ${p.created}
-     <br>
+	<c:forEach items="${accounts}" var="a">
+${a.userName}
 
-		</c:forEach>
-	</c:if>
+<br>
+	</c:forEach>
 </body>
 </html>
