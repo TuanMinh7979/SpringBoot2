@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.example.springdatajpa.model.Product;
+import com.example.springdatajpa.model.ProductInfo;
 
 public interface ProductService {
 	Iterable<Product> findAll();
@@ -23,5 +24,28 @@ public interface ProductService {
 	List<Product> findByYearAndMonth(int year, int month);
 	
 	List<Product> findByDate(Date start, Date end);
+	
+	List<Product>  sortPriceASC();
+	//native query
+	List<Product> limit(int n);
+		
+	List<ProductInfo> findAll2();
+	
+	long sumQuanlity();
+	
+	long sumQuanlity1(boolean status);
+	
+	long sum2(boolean status);
+	
+	long count();
+	//count where
+	long count2(boolean status);
+	
+	double max();
+	
+	double min();
+
+	
+
 	
 }

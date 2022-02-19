@@ -1,7 +1,7 @@
 package com.example.springdatajpa.model;
 
 import java.util.Date;
-
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,11 +9,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "product")
 public class Product {
+	public Set<InvoiceDetail> getInvoiceDetails() {
+		return invoiceDetails;
+	}
+
+	public void setInvoiceDetails(Set<InvoiceDetail> invoiceDetails) {
+		this.invoiceDetails = invoiceDetails;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -89,9 +98,11 @@ public class Product {
 	private Date created;
 	private String description;
 
+	@OneToMany(mappedBy = "product")
+	private Set<InvoiceDetail> invoiceDetails;
 	@ManyToOne
 	@JoinColumn(name = "categoryid")
-	//*-One tuc day la bang con thi co Joincolumn goi den bang cha
+	// *-One tuc day la bang con thi co Joincolumn goi den bang cha
 	private Category category;
 
 	public Product(String name, int price, int quanlity, boolean status, Date created, String description,

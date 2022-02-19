@@ -8,22 +8,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.springdatajpa.model.Invoice;
 import com.example.springdatajpa.repo.CategoryRepo;
+import com.example.springdatajpa.service.InvoiceService;
 import com.example.springdatajpa.service.ProductService;
 
 @Controller
 @RequestMapping("/product")
 public class ProductController {
+
+	@Autowired
+	private InvoiceService invoiceService;
 	@Autowired
 	private ProductService productService;
 
 	@Autowired
 	private CategoryRepo categoryRepo;
 
-	@GetMapping("")
-	public String index(ModelMap map) {
+	@GetMapping(value = { "", "/{limit}" })
+	public String index(ModelMap map, @PathVariable(value = "limit", required = false) int n) {
+		if (n != 0) {
+			map.put("productLimit", productService.limit(n));
+			return "index";
+		}
 		map.put("products", productService.findAll());
 		map.put("productNonActive", productService.findByStatus(false));
 		map.put("productPrices", productService.findByPrices(125, 130));
@@ -47,7 +58,7 @@ public class ProductController {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			map.put("errs", "Co loi voi date");
-			System.out.println("ERRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+
 			e.printStackTrace();
 		}
 //		return "redirect:/";
@@ -55,31 +66,34 @@ public class ProductController {
 
 	}
 
-//	@GetMapping("/form")
-//	public String showForm() {
-//		return "form";
-//	}
+	@GetMapping("/sort")
+	public String sort(ModelMap map) {
+		map.put("productBySortASC", productService.sortPriceASC());
+		return "index";
+	}
 
-//	@PostMapping("/form")
-//	public String hdlForm(@RequestParam("date") String date) {
-//		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-//		Product p = new Product();
-//		p.setName("new product");
-//		p.setPrice(123);
-//		p.setQuanlity(10);
-//		p.setStatus(false);
-//		p.setCategory(categoryRepo.getById(1));
-//		
-//		try {
-//			Date d= df.parse(date);
-//			p.setCreated(d);
-//			productService.save(p);
-//			return "redirect:/";
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		return "form";
-//	}
+	@GetMapping("/dto")
+	public String getDto(ModelMap map) {
+		map.put("productDto", productService.findAll2());
+		return "index2";
+	}
+
+	// BUOI 10
+	@GetMapping("/sum")
+	public String sum(ModelMap map,
+			@RequestParam(value = "status", required = false, defaultValue = "true") boolean sta) {
+
+//		map.put("sumPQwithStatus", productService.sumQuanlity1(sta));
+
+		map.put("sumproductquanlity", productService.sumQuanlity());
+		map.put("sumPPrice", productService.sum2(sta));
+		map.put("count", productService.count());
+		map.put("countWstatus", productService.count2(sta));
+		map.put("maxPrice", productService.max());
+		Invoice testins = invoiceService.findById(1);
+		map.put("sumofAOrder", invoiceService.sumOfAOrder(testins));
+		map.put("sumorderpricebymad", invoiceService.sumPofOrdGiMandY(2, 2022));
+		return "indexx";
+	}
+
 }

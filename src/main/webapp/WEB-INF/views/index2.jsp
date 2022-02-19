@@ -15,10 +15,10 @@
 	<br>
 	<br>
 	<c:if test="${errs == null}">
-	Thanh cong
+
 	<br>
 		<c:forEach items="${productDto}" var="p">
-     ${p.name} --- have price: ${p.price} --- created at ${p.created}
+     ${p.id} --- ${p.name} --- have price: ${p.price}
 			<br>
 
 		</c:forEach>

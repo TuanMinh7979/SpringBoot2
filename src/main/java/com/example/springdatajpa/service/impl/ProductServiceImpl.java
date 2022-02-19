@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.springdatajpa.model.Product;
+import com.example.springdatajpa.model.ProductInfo;
 import com.example.springdatajpa.repo.ProductRepo;
 import com.example.springdatajpa.service.ProductService;
 
@@ -70,12 +71,74 @@ public class ProductServiceImpl implements ProductService {
 		// TODO Auto-generated method stub
 		return productRepo.findByYearAndMonth(year, month);
 	}
-	
+
 	@Override
 	public List<Product> findByDate(Date start, Date end) {
 		// TODO Auto-generated method stub
 		return productRepo.findByDate(start, end);
 	}
+
+	@Override
+	public List<Product> sortPriceASC() {
+		// TODO Auto-generated method stub
+		return productRepo.sortPriceASC();
+	}
+
+	@Override
+	public List<Product> limit(int n) {
+		// TODO Auto-generated method stub
+		return productRepo.limit(n);
+	}
+
+	@Override
+	public List<ProductInfo> findAll2() {
+		// TODO Auto-generated method stub
+
+		return productRepo.findAll2();
+	}
+
+	@Override
+	public long sumQuanlity() {
+		// TODO Auto-generated method stub
+		return productRepo.sumQuanlity();
+	}
+
+	@Override
+	public long sumQuanlity1(boolean status) {
+		// TODO Auto-generated method stub
+		return productRepo.sumQuanlity1(status);
+	}
+
+	@Override
+	public long sum2(boolean status) {
+		// TODO Auto-generated method stub
+		return productRepo.sum2(status);
+	}
+
+	@Override
+	public long count() {
+		// TODO Auto-generated method stub
+		return productRepo.count();
+	}
+
+	@Override
+	public long count2(boolean status) {
+		// TODO Auto-generated method stub
+		return productRepo.count2(status);
+	}
+
+	@Override
+	public double max() {
+		// TODO Auto-generated method stub
+		return productRepo.max();
+	}
+
+	@Override
+	public double min() {
+		// TODO Auto-generated method stub
+		return productRepo.min();
+	}
+
 
 
 }

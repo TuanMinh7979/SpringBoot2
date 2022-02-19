@@ -3,6 +3,7 @@ package com.example.springdatajpa.model;
 import java.util.Date;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,7 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "account")
@@ -79,6 +83,9 @@ public class Account {
 	private String password;
 	private String gender;
 	private String fullName;
+	@DateTimeFormat(pattern="dd/MM/yyyy")
+	//de ta nhan post la String va tu dong convert qua luon khong can 
+	//simpleDateFormat nua 
 	private Date birthday;
 
 	@ManyToMany(fetch = FetchType.LAZY)
@@ -86,4 +93,8 @@ public class Account {
 			@JoinColumn(name = "account_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
 
 	private Set<Role> roles;
+
+	@OneToMany(mappedBy = "account", cascade = CascadeType.ALL)
+	private Set<Invoice> invoices;
+
 }
