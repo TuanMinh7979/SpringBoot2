@@ -1,4 +1,4 @@
-package com.demo.controller;
+package com.example.springdatajpa.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.demo.model.Product;
-import com.demo.service.ProductService;
+import com.example.springdatajpa.model.Product;
+import com.example.springdatajpa.service.ProductService;
 
 @Controller
 //AUTO CAC METHOD SE LA RESPONSE BODY NEU SU DUNG RESTCONTROLLER
